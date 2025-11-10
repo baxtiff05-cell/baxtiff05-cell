@@ -2,16 +2,18 @@ name: Generate Snake Animation
 
 on:
   schedule:
-    - cron: "0 0 * * *" # Har kuni yarim tunda (UTC) ishlaydi
-  workflow_dispatch:
+    - cron: "0 0 * * *"  # Har kuni bir marta ishga tushadi
+  workflow_dispatch:      # Qo‘lda ishga tushirish uchun
+  push:
+    branches:
+      - main
 
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v3
 
       - name: Generate Snake Animation
         uses: Platane/snk@v3
@@ -19,7 +21,7 @@ jobs:
           github_user_name: baxtiff05-cell
           outputs: dist/snake.svg
 
-      - name: Push to output branch
+      - name: Push Snake Animation to output branch
         uses: crazy-max/ghaction-github-pages@v3.1.0
         with:
           target_branch: output
